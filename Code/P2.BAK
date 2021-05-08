@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <graphics.h>
+
+void bresline(int x1, int y1, int x2, int y2)
+{
+    int twody = 2 * abs(y2 - y1);
+    int dx = abs(x2 - x1);
+    int p = twody - dx;
+    int x, y, xend, ystep = 1;
+    int twodydx = twody - 2 * dx;
+    if (x1 > x2)
+    {
+        x = x2;
+        y = y2;
+        xend = x1;
+        if (y2 > y1)
+            ystep = -1;
+    }
+    else
+    {
+        x = x1;
+        y = y1;
+        xend = x2;
+        if (y1 > y2)
+            ystep = -1;
+    }
+    putpixel(x, y, 15);
+    while (x < xend)
+    {
+        x++;
+        if (p < 0)
+        {
+            p += twody;
+        }
+        else
+        {
+            y += ystep;
+            p += twodydx;
+        }
+        putpixel(x, y, 15);
+    }
+}
+int main()
+{
+    int x1, x2, y1, y2;
+    int gdriver = DETECT, gmode, errorcode;
+    initgraph(&gdriver, &gmode, "..\\");
+    errorcode = graphresult();
+    if (errorcode != grOk)
+    {
+        printf("Graphics error: %s\n", grapherrormsg(errorcode));
+        printf("Press any key to halt:");
+        getch();
+        exit(1);
+    }
+    printf("Enter start point\n");
+    scanf("%d %d", &x1, &y1);
+    printf("Enter end point\n");
+    scanf("%d %d", &x2, &y2);
+    bresline(x1, y1, x2, y2);
+    getch();
+    closegraph();
+    return 0;
+}

@@ -1,0 +1,118 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <graphics.h>
+#include <conio.h>
+
+void setpixel(int xc, int yc, int x, int y){
+    putpixel(xc + x, yc + y, WHITE);
+    putpixel(xc + x, yc - y, YELLOW);
+    putpixel(xc - x, yc + y, WHITE);
+    putpixel(xc - x, yc - y, YELLOW);
+    putpixel(xc + y, yc + x, WHITE);
+    putpixel(xc + y, yc - x, YELLOW);
+    putpixel(xc - y, yc + x, WHITE);
+    putpixel(xc - y, yc - x, YELLOW);
+}
+
+void midptcircle(int xc, int yc, int r){
+    int p = 1 - r;
+    int x = 0, y = r;
+    setpixel(xc, yc, x, y);
+    while(x<y){
+        x++;
+        if(p<0){
+            p += 2 * x + 1;
+        }else{
+            y--;
+            p += 2 * (x - y) + 1;
+        }
+        setpixel(xc, yc, x, y);
+    }
+}
+
+int main(){
+
+    int g_mode,g_driver=DETECT;
+    initgraph(&g_driver,&g_mode,"C:\\TURBOC3\\BGI");
+
+    //body
+    midptcircle(300, 300, 99);
+    midptcircle(300, 300, 100);
+    midptcircle(300, 300, 101);
+
+    //face
+    midptcircle(300, 140, 59);
+    midptcircle(300, 140, 60);
+    midptcircle(300, 140, 61);
+
+    //legs
+    midptcircle(235, 410, 29);
+    midptcircle(235, 410, 30);
+    midptcircle(235, 410, 31);
+
+    midptcircle(365, 410, 29);
+    midptcircle(365, 410, 30);
+    midptcircle(365, 410, 31);
+
+
+    //hands
+    midptcircle(200, 220, 29);
+    midptcircle(200, 220, 30);
+    midptcircle(200, 220, 31);
+
+
+    midptcircle(400, 220, 29);
+    midptcircle(400, 220, 30);
+    midptcircle(400, 220, 31);
+
+    //ears
+    midptcircle(245, 75, 24);
+    midptcircle(245, 75, 25);
+    midptcircle(245, 75, 26);
+
+    midptcircle(245, 75, 14);
+    midptcircle(245, 75, 15);
+    midptcircle(245, 75, 16);
+
+    midptcircle(355, 75, 24);
+    midptcircle(355, 75, 25);
+    midptcircle(355, 75, 26);
+
+    midptcircle(355, 75, 14);
+    midptcircle(355, 75, 15);
+    midptcircle(355, 75, 16);
+
+    //eyes
+    midptcircle(275, 125, 9);
+    midptcircle(275, 125, 10);
+    midptcircle(275, 125, 11);
+
+    midptcircle(275, 125, 5);
+    midptcircle(275, 125, 6);
+    midptcircle(275, 125, 7);
+
+    midptcircle(325, 125, 9);
+    midptcircle(325, 125, 10);
+    midptcircle(325, 125, 11);
+
+    midptcircle(325, 125, 5);
+    midptcircle(325, 125, 6);
+    midptcircle(325, 125, 7);
+
+    //mouth
+    midptcircle(300, 170, 24);
+    midptcircle(300, 170, 25);
+    midptcircle(300, 170, 26);
+
+    midptcircle(300, 151, 5);
+    midptcircle(300, 151, 6);
+    midptcircle(300, 151, 7);
+
+    midptcircle(300, 178, 11);
+    midptcircle(300, 178, 12);
+    midptcircle(300, 178, 13);
+
+    getch();
+    closegraph();
+    return 0;
+}

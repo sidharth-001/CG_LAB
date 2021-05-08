@@ -1,0 +1,100 @@
+#include <graphics.h>
+#include <stdio.h>
+#include <conio.h>
+#include <math.h>
+#include <process.h>
+
+#include <iostream.h>
+int main(){
+    int x1, x2, y1, y2, nx1, nx2, ny1, ny2, c, s, constant;
+    int sx, sy, sz, depth = 20, xt, yt, zt, r, shx, shy, shz;
+    int sh;
+    float t;
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, "C:\\TURBOC3\\BGI");
+    printf("\n\n\t3D Transformation operation");
+	printf("\n\n1. Translation \n2. Rotation \n3. Scaling \n4. Shearing \n5. Exit");
+	cout<<"\nEnter your choice: ";
+	cin>>c;
+switch (c){
+    case 1:
+	printf("\nEnter the points of 3d bar:");
+	scanf("%d %d %d %d", &x1, &y1, &x2, &y2);
+	cout<<"\nEnter the translation factors(along x and y): ";
+	scanf("%d %d", &xt, &yt);
+	nx1 = x1 + xt;
+	ny1 = y1 + yt;
+	nx2 = x2 + xt;
+	ny2 = y2 + yt;
+	break;
+    case 2:
+	cout<<"\nEnter the points of 3d bar:";
+	scanf("%d %d %d %d", &x1, &y1, &x2, &y2);
+	cout<<"\nEnter the rotating angle: ";
+	scanf("%d", &sx);
+	cout<<"\nRotating along z axis";
+	nx1 = abs(x1 * cos(sx * 3.14 / 180) - y1 * sin(sx * 3.14 / 180)) + 200;
+	ny1 = abs(x1 * sin(sx * 3.14 / 180) + y1 * cos(sx * 3.14 / 180)) + 200;
+	nx2 = abs(x2 * cos(sx * 3.14 / 180) - y2 * sin(sx * 3.14 / 180)) + 200;
+	ny2 = abs(x2 * sin(sx * 3.14 / 180) + y2 * cos(sx * 3.14 / 180)) + 200;
+	break;
+    case 3:
+	cout<<"\nEnter the points of 3d bar:";
+	scanf("%d %d %d %d", &x1, &y1, &x2, &y2);
+	cout<<"\n Enter the scaling factor(for x,y,z): ";
+	scanf("%d %d %d", &sx, &sy, &sz);
+	nx1 = x1 * sx + 100;
+	ny1 = y1 * sy + 100;
+	nx2 = x2 * sx + 100;
+	ny2 = y2 * sy + 100;
+	depth = depth * sz;
+	break;
+    case 4:
+	cout<<"\nEnter the points of 3d bar:";
+	scanf("%d %d %d %d", &x1, &y1, &x2, &y2);
+cout<<"\nShear along: \n1.x-axis \n2.y-axis \n3.z-axis";
+cout<<"\n\nEnter choice: ";
+scanf("%d", &s);
+cout<<"\n\nEnter shearing parameter: ";
+cin>>sh;
+switch (s)
+{
+	case 1:
+	    nx1 = x1 + sh * y1;
+	    ny1 = y1;
+	    nx2 = x2 + sh * y2;
+	    ny2 = y2;
+	    break;
+	case 2:
+	    nx1 = x1;
+	    ny1 = y1 + sh * x1;
+	    nx2 = x2;
+	    ny2 = y2 + sh * x2;
+	    break;
+	case 3:
+	    nx1 = x1 + sh * y1;
+	    ny1 = y1 + sh * x1;
+	    nx2 = x2 + sh * y2;
+	    ny2 = y2 + sh * x2;
+	    break;
+}
+break;
+case 5:
+cout<<"\nExiting...";
+exit(0);
+default:
+cout<<"\nEnter the correct choice!!";
+break;
+}
+
+//line(0, 0, 0, getmaxy());
+//line(0, 0, getmaxx(), 0);
+setcolor(RED);
+bar3d(x1, y1, x2, y2, 20, 1);
+getch();
+setcolor(GREEN);
+bar3d(nx1, ny1, nx2, ny2, depth, 1);
+getch();
+closegraph();
+return 0;
+}

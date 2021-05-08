@@ -1,0 +1,38 @@
+#include <iostream.h>
+#include <conio.h>
+#include <graphics.h>
+#include <math.h>
+
+int PolygonPoints[4][2] = {{10, 10}, {10, 100}, {100, 100}, {100, 10}};
+float Sx = 0.5;
+float Sy = 2.0;
+
+void PolyLine(){
+    cleardevice();
+    line(0, 240, 640, 240);
+    line(320, 0, 320, 480);
+    for(int itr=0; itr<4; itr++){
+	    line(320 + PolygonPoints[itr][0], 240 - PolygonPoints[itr][1], 320 + PolygonPoints[(itr + 1) % 4][0], 240 - PolygonPoints[(itr + 1) % 4][1]);
+    }
+}
+void Scale(){
+    int itr;
+    int Tx, Ty;
+    cout<<endl;
+    for(itr=0; itr<4; itr++){
+	    PolygonPoints[itr][0] *= Sx;
+	    PolygonPoints[itr][1] *= Sy;
+    }
+}
+
+void main(){
+    int gDriver = DETECT, gMode;
+    int itr;
+    initgraph(&gDriver, &gMode, "C:\\TURBOC3\\BGI");
+    printf("2D Transformation operation\nScaling\n");
+    PolyLine();
+    getch();
+    Scale();
+    PolyLine();
+    getch();
+}
